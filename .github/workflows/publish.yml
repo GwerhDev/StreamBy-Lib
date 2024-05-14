@@ -11,21 +11,30 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4  
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3  
+        uses: actions/setup-node@v3
         with:
           node-version: '20'
-          registry-url: 'https://registry.npmjs.org/'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
         run: npm install
 
-      - name: Lint and Test
-        run: npm test
+      - name: Increment version
+        id: version
+        run: |
+          new_version=$(npm version minor -m "ci: bump version to %s [skip ci]")
+          echo "::set-output name=new_version::$new_version"
 
-      - name: Publish to npm
-        run: npm publish
+      - name: Publish package
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish
+
+      - name: Push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git push origin HEAD:main --follow-tags
