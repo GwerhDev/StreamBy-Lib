@@ -29,12 +29,6 @@ jobs:
           git add .
           git commit -m "ci: committing changes before version bump" || echo "No changes to commit"
 
-      - name: Increment version
-        id: version
-        run: |
-          new_version=$(npm version minor -m "ci: bump version to %s [skip ci]")
-          echo "new_version=$new_version" >> $GITHUB_ENV
-
       - name: Publish package
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
