@@ -1,29 +1,23 @@
 import axios from 'axios';
 
-interface StreambyConfig {
-  streambyUrl: string;
-  clientId: string;
-  clientSecret: string;
-}
-
 interface FileData {
+  buffer: Buffer;
   mimetype: string;
   originalname: string;
-  buffer: Buffer;
 }
 
 export class Streamby {
-  private config: StreambyConfig;
+  private streambyUrl: string;
 
-  constructor(config: StreambyConfig) {
-    this.config = config;
+  constructor() {
+    this.streambyUrl = 'https://streamby-api.vercel.app';
   }
 
-  public async upload(file: FileData): Promise<string> {
+  public async upload(file: FileData, clientId: string, clientSecret: string): Promise<string> {
     try {
-      const { data: response } = await axios.post(`${this.config.streambyUrl}/admin/f/create-url`, {
-        clientId: this.config.clientId,
-        clientSecret: this.config.clientSecret,
+      const { data: response } = await axios.post(`${this.streambyUrl}/admin/f/create-url`, {
+        clientId,
+        clientSecret,
         mimetype: file.mimetype,
         originalname: file.originalname,
       });

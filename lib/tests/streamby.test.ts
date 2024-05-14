@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Streamby } from '..';
+import { Streamby } from '../'; // Asegúrate de que la ruta sea correcta
 
 jest.mock('axios');
 
@@ -21,13 +21,8 @@ describe('Streamby', () => {
     mockedAxios.post.mockResolvedValue({ data: responseData });
     mockedAxios.put.mockResolvedValue({ data: {} });
 
-    const streamby = new Streamby({
-      streambyUrl: 'https://your-streamby-url',
-      clientId: 'your-client-id',
-      clientSecret: 'your-client-secret',
-    });
-
-    const result = await streamby.upload(file);
+    const streamby = new Streamby();
+    const result = await streamby.upload(file, 'your-client-id', 'your-client-secret');
     expect(result).toBe('audio/audio.mp3');
   });
 });
