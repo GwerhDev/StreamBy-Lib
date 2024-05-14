@@ -18,8 +18,7 @@ describe('Streamby', () => {
     axios.put.mockResolvedValue({ status: 200 });
 
     const streamby = new Streamby();
-    const file = {
-      buffer: Buffer.from('test file'),
+    const fileData = {
       mimetype: 'audio/mpeg',
       originalname: 'testfile.mp3'
     };
@@ -27,18 +26,13 @@ describe('Streamby', () => {
     const clientId = 'testClientId';
     const clientSecret = 'testClientSecret';
 
-    const result = await streamby.upload({ file, clientId, clientSecret });
+    const result = await streamby.getBucket({ fileData, clientId, clientSecret });
 
-    expect(result).toBe(mockPath);
+    expect(result).toStrictEqual({ path: mockPath, url: mockUrl });
     expect(axios.post).toHaveBeenCalledWith('https://streamby-api.vercel.app/admin/f/create-url', {
       clientId,
       clientSecret,
-      mimetype: file.mimetype,
-    });
-    expect(axios.put).toHaveBeenCalledWith(mockUrl, file, {
-      headers: {
-        "Content-Type": file.mimetype
-      }
+      mimetype: fileData.mimetype,
     });
   });
 });
