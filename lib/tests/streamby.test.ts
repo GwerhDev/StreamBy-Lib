@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Streamby } from '../'; // Asegúrate de que la ruta sea correcta
+import { Streamby } from '../../'; // Asegúrate de que la ruta sea correcta
 
 jest.mock('axios');
 
