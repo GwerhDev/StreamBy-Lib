@@ -6,7 +6,7 @@ interface FileData {
   originalname: string;
 }
 
-export class Streamby {
+export default class Streamby {
   private streambyUrl: string;
 
   constructor() {
