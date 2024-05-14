@@ -1,8 +1,8 @@
 {
   "name": "streamby",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "build": "tsc",
     "test": "jest"
