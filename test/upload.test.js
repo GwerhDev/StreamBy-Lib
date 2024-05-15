@@ -29,7 +29,7 @@ describe('Streamby', () => {
     const result = await streamby.getBucket({ fileData, clientId, clientSecret });
 
     expect(result).toStrictEqual({ path: mockPath, url: mockUrl });
-    expect(axios.post).toHaveBeenCalledWith('https://streamby-api.vercel.app/admin/f/create-url', {
+    expect(axios.post).toHaveBeenCalledWith('https://streamby-api.vercel.app/subscriber/file/create-signed-url', {
       clientId,
       clientSecret,
       mimetype: fileData.mimetype,

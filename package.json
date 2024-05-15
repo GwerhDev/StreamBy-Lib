@@ -1,6 +1,6 @@
 {
-  "name": "streamby-test",
-  "version": "3.5.2",
+  "name": "streamby",
+  "version": "2.0.0",
   "main": "index.js",
   "scripts": {
     "test": "jest",
